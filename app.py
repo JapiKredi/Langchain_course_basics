@@ -14,20 +14,20 @@ os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
 
 # Prompt template
 
-prompt = ChatPromptTemplate(
-    [("system" : "You are a helpful assistant. Please respond to the user querries"),
-     ("user" : "Question: {question}")   
+prompt = ChatPromptTemplate.from_messages(
+    [("system" , "You are a helpful assistant. Please respond to the user querries"),
+     ("user" , "Question: {question}")   
     ]
 )
 
 # Streamlid framework
-st.title("LANGCHAIN demo with OPEN AI API")
+st.title("LANGCHAIN demo with OPENAI API")
 input_text = st.text_input("Search the topic you want")
 
 # OPENAI LLM
-llm = ChatOpenAI(model='gpt-3.5-turbo')
-output_parser = StrOutputParser()
-chain = prompt | llm | output_parser
+llm=ChatOpenAI(model="gpt-3.5-turbo")
+output_parser=StrOutputParser()
+chain=prompt|llm|output_parser
 
 if input_text:
     st.write(chain.invoke({'question':input_text}))
